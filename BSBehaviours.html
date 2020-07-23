@@ -1329,6 +1329,31 @@
       
     }
 
+    function showAllHostileButtons()
+    {
+      $('#TGButton').show();
+      $('#NGButton').show();
+      $('#UGButton').show();
+      $('#SDButton').show();
+      $('#CBButton').show();
+      $('#RPButton').show();
+      $('#CSMButton').show();
+      $('#OMButton').show();
+      $('#OMAButton').show();
+      $('#AMButton').show();
+      $('#AMEButton').show();
+      $('#BIButton').show();
+      $('#TCButton').show();
+      $('#COButton').show();
+      $('#PMButton').show();
+      $('#PWButton').show();
+      $('#GPButton').show();
+      $('#MPButton').show();
+      $('#MOPButton').show();
+      $('#CLButton').show();
+      $('#CFButton').show();
+    }
+
     function generateRollResult(modifier, hostileObject,hostileResultObject,hostileDescrObject,hostileStatus)
     {
       var d20Roll = rollD20(modifier);
@@ -1397,7 +1422,7 @@
     $(document).ready(
       function()
       {
-        hideAllHostileButtons();  
+        //hideAllHostileButtons();  
 
         $('#generateHostileButton').click(
           function()
@@ -2288,6 +2313,16 @@
 
         )
 
+        $('#clearHostileListButon').click(
+          function()
+          {
+            hideAllHostileButtons();
+          }
+
+        )
+
+        
+
 
         $('#blackstoneRoll').hide();
         $('#resetHostilesButton').hide();
@@ -2337,7 +2372,7 @@
         <option value="MOP">Master of Possession</option>
       </select>
     </div>
-    <div class="text-center">
+    <div class="text-center"><button type="button" class="btn btn-dark" id="clearHostileListButon">Clear List</button>
       <button type="button" class="btn btn-dark" id="generateHostileButton">Reset Selection</button>
     </div>
   </div>
