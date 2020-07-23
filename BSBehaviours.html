@@ -634,7 +634,14 @@
           hiddenResult: function(rollResult)
           {
             if(rollResult<4)
-              return sneakResult;
+            {
+              if($("input:checked").val()=='OM')
+              {
+                return advanceResult;
+              }
+              else return sneakResult;
+            }
+              
               else if(rollResult>3 && rollResult<10)
               return advanceResult;
               else if(rollResult>9 && rollResult<13)
@@ -680,9 +687,23 @@
               else if(rollResult>6 && rollResult<10)
               return advanceResult;
               else if(rollResult>9 && rollResult<16)
-              return onslaughtResult;
+              {
+                if($("input:checked").val()=='OM')
+                {
+                  return chargeResult; 
+                }
+                else return onslaughtResult
+                
+              }
+              
               else if(rollResult>15 && rollResult<20)
-              return overchargeResult;
+              {
+                if($("input:checked").val()=='OM')
+                {
+                  return rushResult; 
+                }
+                else return overchargeResult;
+              }
               else
               return rushResult;
           }
@@ -737,7 +758,14 @@
             if(rollResult<4)
               return holdResult;
               else if(rollResult>3 && rollResult<10)
-              return fallbackResult;
+              {
+                if($("input:checked").val()=='AM')
+                {
+                  return advanceResult;
+                }
+                else return fallbackResult;
+              }
+              
               else if(rollResult>9 && rollResult<18)
               return chargeResult;
               else
@@ -2497,6 +2525,8 @@
            </div>
          </li>
        </ul>
+       <input type="checkbox" class="form-check-input" name="" id="OMEmpowered" value="OM">
+            Empowered
      </div>
      <div class="card-body">
        <h5 class="card-title" id="OMResultValue">&nbsp;</h5>
