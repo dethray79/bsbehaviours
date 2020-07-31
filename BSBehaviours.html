@@ -1479,6 +1479,53 @@
                     $('#CFButton').show();
                  
                   });
+
+                  $('select > option:not(:selected)').each(function() {
+                 // alert($(this).val());
+                   if($(this).val()=='TG')
+                    $('#TGButton').hide();
+                    if($(this).val()=='NG')
+                    $('#NGButton').hide();
+                    if($(this).val()=='UG')
+                    $('#UGButton').hide();
+                    if($(this).val()=='SD')
+                    $('#SDButton').hide();
+                    if($(this).val()=='CB')
+                    $('#CBButton').hide();
+                    if($(this).val()=='RP')
+                    $('#RPButton').hide();
+                    if($(this).val()=='CSM')
+                    $('#CSMButton').hide();
+                    if($(this).val()=='OM')
+                    $('#OMButton').hide();
+                    if($(this).val()=='OMA')
+                    $('#OMAButton').hide();
+                    if($(this).val()=='AM')
+                    $('#AMButton').hide();
+                    if($(this).val()=='AME')
+                    $('#AMEButton').hide();
+                    if($(this).val()=='BI')
+                    $('#BIButton').hide();
+                    if($(this).val()=='TC')
+                    $('#TCButton').hide();
+                    if($(this).val()=='CO')
+                    $('#COButton').hide();
+                    if($(this).val()=='PM')
+                    $('#PMButton').hide();
+                    if($(this).val()=='PW')
+                    $('#PWButton').hide();
+                    if($(this).val()=='GP')
+                    $('#GPButton').hide();
+                    if($(this).val()=='MOP')
+                    $('#MOPButton').hide();
+                    if($(this).val()=='CL')
+                    $('#CLButton').hide();
+                    if($(this).val()=='CF')
+                    $('#CFButton').hide();
+                 
+                  });
+
+
                 
               }
               )
