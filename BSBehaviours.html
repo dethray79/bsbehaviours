@@ -1411,14 +1411,8 @@
             var rollResult = hostileObject.bodyguardResult(d20Roll);
                 hostileResultObject.text(d20Roll+" - "+rollResult.result);
                 hostileDescrObject.text(rollResult.descr);
-          }
-
-
-
-
-                
+          }           
     }
-
     $(document).ready(
       function()
       {
@@ -1483,45 +1477,121 @@
                   $('select > option:not(:selected)').each(function() {
                  // alert($(this).val());
                    if($(this).val()=='TG')
+                   {
                     $('#TGButton').hide();
+                    $('#TGCard').hide();
+                   }
+                   
                     if($(this).val()=='NG')
-                    $('#NGButton').hide();
+                    {
+                      $('#NGButton').hide();
+                      $('#NGCard').hide();
+                    }
+                  
                     if($(this).val()=='UG')
-                    $('#UGButton').hide();
+                    {
+                      $('#UGButton').hide();
+                      $('#UGCard').hide();
+                    }
+                   
                     if($(this).val()=='SD')
-                    $('#SDButton').hide();
+                    {
+                      $('#SDButton').hide();
+                      $('#SDCard').hide();
+                    }
+                   
                     if($(this).val()=='CB')
-                    $('#CBButton').hide();
+                    {
+                      $('#CBButton').hide();
+                      $('#CBCard').hide();
+                    }
+                    
                     if($(this).val()=='RP')
-                    $('#RPButton').hide();
+                    {
+                      $('#RPButton').hide();
+                      $('#RPCard').hide();
+                    }
+                    
                     if($(this).val()=='CSM')
-                    $('#CSMButton').hide();
+                    {
+                      $('#CSMButton').hide();
+                      $('#CSMCard').hide();
+                    }
+                    
                     if($(this).val()=='OM')
-                    $('#OMButton').hide();
+                    {
+                      $('#OMButton').hide();
+                      $('#OMCard').hide();
+                    }
+                    
                     if($(this).val()=='OMA')
-                    $('#OMAButton').hide();
+                    {
+                      $('#OMAButton').hide();
+                      $('#OMACard').hide();
+                    }
+                    
                     if($(this).val()=='AM')
-                    $('#AMButton').hide();
+                    {
+                      $('#AMButton').hide();
+                      $('#AMCard').hide();
+                    }
+                   
                     if($(this).val()=='AME')
                     $('#AMEButton').hide();
                     if($(this).val()=='BI')
-                    $('#BIButton').hide();
+                    {
+                      $('#BIButton').hide();
+                      $('#BICard').hide();
+                    }
+                    
                     if($(this).val()=='TC')
-                    $('#TCButton').hide();
+                    {
+                      $('#TCButton').hide();
+                      $('#TCCard').hide();
+                    }
+                   
                     if($(this).val()=='CO')
-                    $('#COButton').hide();
+                    {
+                      $('#COButton').hide();
+                      $('#COCard').hide();
+                    }
+                   
                     if($(this).val()=='PM')
-                    $('#PMButton').hide();
+                    {
+                      $('#PMButton').hide();
+                      $('#PMCard').hide();
+                    }
+                    
                     if($(this).val()=='PW')
-                    $('#PWButton').hide();
+                    {
+                      $('#PWButton').hide();
+                      $('#PWCard').hide();
+                    }
+                    
                     if($(this).val()=='GP')
-                    $('#GPButton').hide();
+                    {
+                      $('#GPButton').hide();
+                      $('#GPCard').hide();
+                    }
+                    
                     if($(this).val()=='MOP')
-                    $('#MOPButton').hide();
+                    {
+                      $('#MOPButton').hide();
+                      $('#MOPCard').hide();
+                    }
+                    
                     if($(this).val()=='CL')
-                    $('#CLButton').hide();
+                    {
+                      $('#CLButton').hide();
+                      $('#CLCard').hide();
+                    }
+                    
                     if($(this).val()=='CF')
-                    $('#CFButton').hide();
+                    {
+                      $('#CFButton').hide();
+                      $('#CFCard').hide();
+                    }
+                   
                  
                   });
 
@@ -2368,10 +2438,6 @@
           }
 
         )
-
-        
-
-
         $('#blackstoneRoll').hide();
         $('#resetHostilesButton').hide();
 
