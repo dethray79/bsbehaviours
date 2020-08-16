@@ -1432,7 +1432,11 @@
                 $('select > option:selected').each(function() {
                  // alert($(this).val());
                    if($(this).val()=='TG')
+                   {
                     $('#TGButton').show();
+                    $('#TGCard').show();
+                   }
+                   
                     if($(this).val()=='NG')
                     $('#NGButton').show();
                     if($(this).val()=='UG')
@@ -1479,7 +1483,7 @@
                    if($(this).val()=='TG')
                    {
                     $('#TGButton').hide();
-                    $('#TGCard').hide();
+                    $('#TGCard').toggle();
                    }
                    
                     if($(this).val()=='NG')
