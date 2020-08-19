@@ -201,6 +201,59 @@
         descr:"Make a □ attack roll against each explorer and hostile within two hexes of and visible to the Cultist Firebrand."
       }
 
+      var eventResults =[
+        {descr: "ALL IS DUST", details:"If any discovery markers are still on the battlefield, the leader must discard one of them. If there are no discovery markers, each explorer loses 1 inspiration point, to a minimum of 0."},
+        {descr: "UNFULFILLED DESTINY", details:"Do not make a destiny roll at the start of the next turn."},
+        {descr: "NOT DEAD YET", details:"The leader must pick one hostile that was slain during the combat and has not returned to the battlefield, and then deploy them as close to an explorer as possible."},
+        {descr: "CHANGING CONDITIONS", details:"Draw an encounter card. If the card has a twist, it applies for the rest of the combat. If not, there is no effect."},
+        {descr: "ESCAPE CHAMBER", details:"The leader replaces the portal furthest from any explorers with a maglev transport escape chamber. If more than one portal is equally far from the explorers, the leader can pick which one to replace. If this even has already been rolled, or if an explorer has used a Summon action, there is no effect."},
+        {descr: "INSPIRATION", details:"The leader picks an explorer. That explorer receives 1 inspiration point."},
+        {descr: "HEROIC EFFORT", details:"The leader picks an explorer that is out of action. Deploy the explorer in the same hex as another explorer or as close to another explorer as possible, and then make a vitality roll for them. If no explorers are out of action, the leader picks an explorer. Make a vitality roll for that explorer."},
+        {descr: "LUCKY FIND", details:"The leader picks an explorer. That explorer draws a discovery card."}
+      ];
+
+      function generateResult(rollModifier, eventResultsObject, eventDetailsObject)
+      {
+        var rollResult = rollD20(rollModifier);
+        var indexValue;
+        if(rollResult==1)
+        {
+          indexValue=0;
+        }//2-3
+        else if(rollResult>1 && rollResult<4)
+        {
+          indexValue=1;
+        }//4-6
+        else if(rollResult>3 && rollResult<7)
+        {
+          indexValue=2;
+        }//7-10
+        else if(rollResult>6 && rollResult<11)
+        {
+          indexValue=3;
+        }//11-14
+        else if(rollResult>10 && rollResult<15)
+        {
+          indexValue=4;
+        }//15-17
+        else if(rollResult>14 && rollResult<18)
+        {
+          indexValue=5;
+        }//18-19
+        else if(rollResult>17 && rollResult<20)
+        {
+          indexValue=6;
+        }//20
+        else
+        {
+          indexValue=7;
+        }
+
+            eventResultsObject.text(rollResult+" - "+eventResults[indexValue].descr);
+            eventDetailsObject.text(eventResults[indexValue].details);
+      }
+
+
       var traitorGuardHostile = {
           name:"Traitor Guardsmen",
           id:"TG",
@@ -2365,6 +2418,18 @@
           }
 
         )
+          //On click event roll the dice and apply the result
+           $('#eventButton').click(
+          function()
+          {
+            generateResult(0, $('#eventTitleDescr'), $('#eventDetailDescr'))
+          }
+
+        )
+
+
+
+
         $('#blackstoneRoll').hide();
         $('#resetHostilesButton').hide();
 
@@ -2383,6 +2448,7 @@
           </li>
           <li><div class="text-light" id="blackstoneDiceResult"></div></li>
         </ul>
+          <button class="btn btn-outline-success my-2 my-sm-0" id="eventButton" data-toggle="modal" data-target="#eventModal">Event</button>
       </div>
     </nav>
 <div class="card">
@@ -2823,7 +2889,7 @@
 </div>
 <!--GREATER POSSESSED-->
 <div class="container-fluid" id="GPButton">
-<button type="button" class="btn btn-dark btn-block btn-lg" id="GPButtonD" data-toggle="collapse" data-target="#GPCard">Greater Possessed</button>
+<button type="button" class="btn btn-dark btn-block btn-lg" id="GPButtonD" data-toggle="collapse" data-target="#eventModal">Greater Possessed</button>
 <div class="collapse multi-collapse" id="GPCard">
  <div class="card text-center">
    <div class="card-header">
@@ -2906,6 +2972,19 @@
 
 </div>
 </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="card-body">
+        <h5 class="card-title" id="eventTitleDescr">&nbsp;</h5>
+        <p class="card-text" id="eventDetailDescr">&nbsp;</p>
+        <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
