@@ -201,6 +201,21 @@
         descr:"Make a □ attack roll against each explorer and hostile within two hexes of and visible to the Cultist Firebrand."
       }
 
+      var scuttleResult = {
+        result:"SCUTTLE",
+        descr:"Move towards the closest explorer. Then attack the closest explorer that is in range of and visible to this hostile. If there is no explorer in range and visible to this hostile, move towards the closest explorer a second time, then attack the closest explorer that is in range and visible to this hostile."
+      }
+
+      var hoverdronesResult = {
+        result:"HOVER DRONES",
+        descr:"If there is already a HOver Drones token in the same hex as this hostile, treat this as a Charge result instead. Otherwise, place a Hover Drones token in the same hex as this hostile. This token moves with this hostile - at the end of the hostiles move place the Hover Drones token in the same hex as this hostile. When this hostile is the target of an explorer that is 2 or more hexes away, if there is a Hover Drones token in that hex, the attack has no effect and you remove the Hover Drones token."
+      }
+
+      var commandResult = {
+        result:"COMMAND",
+        descr:"If there are any Awakened Spindle Drones on the battlefield, activate each Awakened Spindle Drone immediately after this hostile's activation. This is in addition to the Awakened Spindle Drones' activations this phase. If there are no Awakened Spindle Drones on the battlefield, treat this as an Advance result instead."
+      }
+
       var eventResults =[
         {descr: "ALL IS DUST", details:"If any discovery markers are still on the battlefield, the leader must discard one of them. If there are no discovery markers, each explorer loses 1 inspiration point, to a minimum of 0."},
         {descr: "UNFULFILLED DESTINY", details:"Do not make a destiny roll at the start of the next turn."},
@@ -384,12 +399,28 @@
           size:"SMALL",
           hiddenResult: function(rollResult)
           {
+            
             if(rollResult<4)
               return holdResult;
               else if(rollResult>3 && rollResult<7)
               return sneakResult;
-              else if(rollResult>6 && rollResult<20)
-              return advanceResult;
+              else if(rollResult>6 && rollResult<13)
+              {
+                if($("input:checked").val()=='SD')
+                {
+                  return advanceResult;
+                }
+                else return sneakResult;
+                
+              }
+              else if(rollResult>12 && rollResult<20)
+              {
+                if($("input:checked").val()=='SD')
+                {
+                  return scuttleResult;
+                }
+                else return advanceResult;
+              }
               else
               return alertResult;
           },
@@ -398,7 +429,15 @@
             if(rollResult<4)
               return fallbackResult;
               else if(rollResult>3 && rollResult<7)
-              return fallbackResult;
+              {
+                if($("input:checked").val()=='SD')
+                {
+                  return onslaughtResult;
+                }
+                else return fallbackResult;
+                
+              }
+             
               else if(rollResult>6 && rollResult<10)
               return onslaughtResult;
               else if(rollResult>9 && rollResult<13)
@@ -428,11 +467,23 @@
           closeResult: function(rollResult)
           {
             if(rollResult<4)
-              return fallbackResult;
+            {
+              if($("input:checked").val()=='SD')
+                {
+                  return aimResult;
+                }
+                else return fallbackResult;
+            }
               else if(rollResult>3 && rollResult<7)
               return aimResult;
               else if(rollResult>6 && rollResult<10)
-              return aimResult;
+              {
+                if($("input:checked").val()=='SD')
+                {
+                  return onslaughtResult;
+                }
+                else return aimResult;
+              }
               else if(rollResult>9 && rollResult<13)
               return onslaughtResult;
               else if (rollResult>12 && rollResult<20)
@@ -444,19 +495,95 @@
           otherResult: function(rollResult)
           {
             if(rollResult<4)
-              return fallbackResult;
+            {
+              if($("input:checked").val()=='SD')
+                {
+                  return aimResult;
+                }
+                else return fallbackResult;
+            }
               else if(rollResult>3 && rollResult<7)
               return aimResult;
               else if(rollResult>6 && rollResult<10)
-              return aimResult;
+              {
+                if($("input:checked").val()=='SD')
+                {
+                  return onslaughtResult;
+                }
+                else return aimResult;
+              }
               else if(rollResult>9 && rollResult<13)
               return onslaughtResult;
               else if (rollResult>12 && rollResult<16)
               return onslaughtResult;
               else if (rollResult>15 && rollResult<20)
-              return advanceResult;
+              {
+                if($("input:checked").val()=='SD')
+                {
+                  return onslaughtResult;
+                }
+                else return advanceResult;
+              }
               else
               return alertResult;
+          
+          }
+        };
+    
+    //Guardian Drones
+    var guardianDroneHostile = {
+          name:"Guardian Drone",
+          id:"GD",
+          size:"HUGE",
+          hiddenResult: function(rollResult)
+          {
+            if(rollResult<7)
+              return hoverdronesResult;
+              else if(rollResult>6 && rollResult<10)
+              return chargeResult;
+              else if(rollResult>9 && rollResult<20)
+              return advanceResult;
+              else
+              return commandResult;
+          },
+          engagedResult: function(rollResult)
+          {
+            if(rollResult<20)
+              return onslaughtResult;
+              else
+              return commandResult;
+          },
+
+          coverResult: function(rollResult)
+          {
+            if(rollResult<20)
+              return onslaughtResult;
+              else
+              return commandResult;
+          },
+
+          closeResult: function(rollResult)
+          {
+            if(rollResult<10)
+              return chargeResult;
+              else if(rollResult>9 && rollResult<20)
+              return onslaughtResult;
+              else
+              return commandResult;
+          },
+
+          otherResult: function(rollResult)
+          {
+            if(rollResult<7)
+              return hoverdronesResult;
+              else if(rollResult>6 && rollResult<10)
+              return chargeResult;
+              else if(rollResult>9 && rollResult<16)
+              return advanceResult;
+              else if(rollResult>15 && rollResult<20)
+              return onslaughtResult;
+              else
+              return commandResult;
           
           }
         };
@@ -1356,6 +1483,7 @@
       $('#MOPButton').hide();
       $('#CLButton').hide();
       $('#CFButton').hide();
+      $('#GDButton').hide();
       //$('#TGCard').hide();
       
     }
@@ -1382,6 +1510,7 @@
       $('#MPButton').show();
       $('#MOPButton').show();
       $('#CLButton').show();
+      $('#CFButton').show();
       $('#CFButton').show();
     }
 
@@ -1503,6 +1632,8 @@
                     $('#CLButton').show();
                     if($(this).val()=='CF')
                     $('#CFButton').show();
+                    if($(this).val()=='GD')
+                    $('#GDButton').show();
                  
                   });
 
@@ -1551,6 +1682,8 @@
                     $('#CLButton').hide();
                     if($(this).val()=='CF')
                     $('#CFButton').hide();
+                    if($(this).val()=='GD')
+                    $('#GDButton').hide();
                  
                   });
 
@@ -1712,6 +1845,52 @@
         $('#SDCard').on('hidden.bs.collapse', function () {
         $('#SDResultValue').text("");
         $('#SDResultDescr').text("");
+      })
+
+      //Guardian Drone
+      $('#GDHiddenButton').click(
+          
+          function()
+          {
+            generateRollResult(0, guardianDroneHostile,$('#GDResultValue'),$('#GDResultDescr'),"HIDDEN");
+          }
+        )     
+
+        $('#GDEngagedButton').click(
+
+            function()
+          {
+            generateRollResult(0, guardianDroneHostile,$('#GDResultValue'),$('#GDResultDescr'),"ENGAGED");
+          }
+      )  
+
+      $('#GDCoverButton').click(
+
+        function()
+          {
+            generateRollResult(0, guardianDroneHostile,$('#GDResultValue'),$('#GDResultDescr'),"COVER");
+          }
+        )
+
+      $('#GDCloseButton').click(
+
+        function()
+          {
+            generateRollResult(0, guardianDroneHostile,$('#GDResultValue'),$('#GDResultDescr'),"CLOSE");
+          }
+        )    
+
+      $('#GDOtherButton').click(
+
+          function()
+          { 
+            generateRollResult(0, guardianDroneHostile,$('#GDResultValue'),$('#GDResultDescr'),"OTHER");
+          }
+        ) 
+
+        $('#GDCard').on('hidden.bs.collapse', function () {
+        $('#GDResultValue').text("");
+        $('#GDResultDescr').text("");
       })
       
        //Ur-Ghuls
@@ -2470,6 +2649,7 @@
         <option value="NG">Negavolt Cultists</option>
         <option value="UG">Ur-Ghuls</option>
         <option value="SD">Spindle Drones</option>
+        <option value="GD">Guardian Drone</option>
         <option value="CB">Chaos Beastman</option>
         <option value="RP">Rogue Psykers</option>
         <option value="CSM">Chaos Space Marines</option>
@@ -2563,6 +2743,8 @@
               </div>
             </li>
           </ul>
+          <input type="checkbox" class="form-check-input" name="" id="SDAwakened" value="SD">
+          Awakened
         </div>
         <div class="card-body">
           <h5 class="card-title" id="SDResultValue">&nbsp;</h5>
@@ -2573,6 +2755,33 @@
       </div>
       <br/>
     </div>
+    <!-- GUARDIAN DRONE-->
+    <div class="container-fluid" id="GDButton">
+      <button type="button" class="btn btn-dark btn-block btn-lg" id="GDButtonD" data-toggle="collapse" data-target="#GDCard">Guardian Drone</button>
+      <div class="collapse multi-collapse" id="GDCard">
+       <div class="card text-center">
+         <div class="card-header">
+           <ul class="nav nav-pills card-header-pills justify-content-center">
+             <li class="nav-item">
+               <div class="btn-group-sm" role="group" aria-label="Basic example">
+                 <button type="button" class="btn btn-secondary" id="GDHiddenButton">Hidden</button>
+                 <button type="button" class="btn btn-secondary" id="GDEngagedButton" >Engaged</button>
+                 <button type="button" class="btn btn-secondary" id="GDCoverButton" >In Cover</button>
+                 <button type="button" class="btn btn-secondary" id="GDCloseButton" >Close</button>
+                 <button type="button" class="btn btn-secondary" id="GDOtherButton">Other</button>
+               </div>
+             </li>
+           </ul>
+         </div>
+         <div class="card-body">
+           <h5 class="card-title" id="GDResultValue">&nbsp;</h5>
+           <p class="card-text" id="GDResultDescr">&nbsp;</p>
+           <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+         </div>
+       </div>
+       </div>
+       <br/>
+     </div>
     <!-- UR-GHULS-->
     <div class="container-fluid" id="UGButton">
     <button type="button" class="btn btn-dark btn-block btn-lg" id="UGButtonD" data-toggle="collapse" data-target="#UGCard">Ur-Ghuls</button>
