@@ -19,6 +19,7 @@
 
   <script>
       var modifier=0;
+      var showHostile=0;
 
       var holdResult = {
         result:"HOLD",
@@ -215,6 +216,25 @@
         result:"COMMAND",
         descr:"If there are any Awakened Spindle Drones on the battlefield, activate each Awakened Spindle Drone immediately after this hostile's activation. This is in addition to the Awakened Spindle Drones' activations this phase. If there are no Awakened Spindle Drones on the battlefield, treat this as an Advance result instead."
       }
+
+      var observeResult = {
+        result:"OBSERVE",
+        descr:"Double this hostile's Move value when they take this action. Move towards the closest explorer."
+      }
+
+      var steadAdvanceResult2 = {
+        result:"STEADY ADVANCE",
+        descr:"Double this hostile's Move value when they take this action. Move towards the cloest explorer, then attack the closest explorer that is in range of and visible to the Archivist."
+      }
+
+      var almightyBlowResult = {
+        result:"ALMIGHTY BLOW",
+        descr:"Make one Eradicator Glove weapon action against one visible, adjacent explorer. When rolling for this attack action, resolve each result on the action dice one at a time, resolving any successes before any critical successes."
+      }
+
+
+
+
 
       var eventResults =[
         {descr: "ALL IS DUST", details:"If any discovery markers are still on the battlefield, the leader must discard one of them. If there are no discovery markers, each explorer loses 1 inspiration point, to a minimum of 0."},
@@ -1447,6 +1467,82 @@
           }
         };
 
+    // The Arch***
+    var archHostile = {
+          name:"The Archivist",
+          id:"ARC",
+          size:"HUGE",
+          hiddenResult: function(rollResult)
+          {
+            if(rollResult<4)
+              return holdResult;
+              else if(rollResult>3 && rollResult<7)
+              return sneakResult;
+              else if(rollResult>6 && rollResult<10)
+              return observeResult;
+              else if(rollResult>9 && rollResult<13)
+              return observeResult; 
+              else
+              return advanceResult;
+          },
+          engagedResult: function(rollResult)
+          {
+            if(rollResult<4)
+              return fallbackResult;
+              else if(rollResult>3 && rollResult<7)
+              return steadAdvanceResult2;
+              else if(rollResult>6 && rollResult<16)
+              return onslaughtResult;
+              else if(rollResult>15 && rollResult<18)
+              return furyResult;
+              else
+              return almightyBlowResult;
+          },
+
+          coverResult: function(rollResult)
+          {
+            if(rollResult<4)
+              return steadAdvanceResult2;
+              else if(rollResult>3 && rollResult<7)
+              return steadAdvanceResult2;
+              else if(rollResult>6 && rollResult<10)
+              return onslaughtResult;
+              else if(rollResult>9 && rollResult<13)
+              return onslaughtResult;
+              else if (rollResult>12 && rollResult<18)
+              return steadAdvanceResult2;
+              else
+              return furyResult;
+          },
+
+          closeResult: function(rollResult)
+          {
+            if(rollResult<4)
+              return fallbackResult;
+              else if(rollResult>3 && rollResult<7)
+              return steadAdvanceResult2;
+              else if(rollResult>6 && rollResult<10)
+              return steadAdvanceResult2;
+              else if(rollResult>9 && rollResult<16)
+              return onslaughtResult;
+              else
+              return chargeResult;
+          },
+
+          otherResult: function(rollResult)
+          {
+            if(rollResult<10)
+              return observeResult;
+              else if(rollResult>9 && rollResult<16)
+              return advanceResult;
+              else
+              return steadAdvanceResult2;
+          }
+
+
+        };
+
+
 
     //Default Blackstone dice roll. Takes modifier which can be a number (negative or positive)
     function rollD20(modifier) {
@@ -1484,6 +1580,7 @@
       $('#CLButton').hide();
       $('#CFButton').hide();
       $('#GDButton').hide();
+      $('#ARCButton').hide();
       //$('#TGCard').hide();
       
     }
@@ -1583,6 +1680,12 @@
           function()
               {
                 showAllHostileButtons();
+                showHostile++;
+                if(showHostile==5)
+                {
+                  alert("You have unlocked the Archivist!!!");
+                  $('#multiHostileSelect').append('<option value="ARC">The Archivist</option>');
+                }
               }
         )
 
@@ -1634,6 +1737,8 @@
                     $('#CFButton').show();
                     if($(this).val()=='GD')
                     $('#GDButton').show();
+                    if($(this).val()=='ARC')
+                    $('#ARCButton').show();
                  
                   });
 
@@ -1684,6 +1789,9 @@
                     $('#CFButton').hide();
                     if($(this).val()=='GD')
                     $('#GDButton').hide();
+
+                    if($(this).val()=='ARC')
+                    $('#ARCButton').hide();
                  
                   });
 
@@ -2551,6 +2659,56 @@
         $('#CFResultValue').text("");
         $('#CFResultDescr').text("");
       })
+
+// The ARCH***
+$('#ARCHiddenButton').click(
+
+function()
+{
+  generateRollResult(0, archHostile,$('#ARCResultValue'),$('#ARCResultDescr'),"HIDDEN");
+}
+)      
+$('#ARCEngagedButton').click(
+
+function()
+{ 
+  generateRollResult(0, archHostile,$('#ARCResultValue'),$('#ARCResultDescr'),"ENGAGED");
+}
+) 
+
+$('#ARCCoverButton').click(
+
+function()
+{
+
+  generateRollResult(0, traitorGuardHostile,$('#ARCResultValue'),$('#ARCResultDescr'),"COVER");
+
+}
+) 
+$('#ARCCloseButton').click(
+
+function()
+{
+  generateRollResult(0, traitorGuardHostile,$('#ARCResultValue'),$('#ARCResultDescr'),"CLOSE");
+}
+)
+$('#ARCOtherButton').click(
+
+function()
+{
+  generateRollResult(0, traitorGuardHostile,$('#ARCResultValue'),$('#ARCResultDescr'),"OTHER");
+}
+)
+    
+$('#ARCCard').on('hidden.bs.collapse', function () {
+$('#ARCResultValue').text("");
+$('#ARCResultDescr').text("");
+$('#ARCCheckBox').prop("checked", false);
+})
+
+
+
+
         
         $('#resetHostilesButton').click(
 
@@ -3187,6 +3345,33 @@
  </div>
  <br/>
 </div>
+<!--ARCH*** -->
+<div class="container-fluid" id="ARCButton">
+  <button type="button" class="btn btn-dark btn-block btn-lg" id="ARCButtonD" data-toggle="collapse" data-target="#ARCCard">The Archivist</button>
+  <div class="collapse multi-collapse" id="ARCCard">
+   <div class="card text-center">
+     <div class="card-header">
+       <ul class="nav nav-pills card-header-pills justify-content-center">
+         <li class="nav-item">
+           <div class="btn-group-sm" role="group" aria-label="Basic example">
+             <button type="button" class="btn btn-secondary" id="ARCHiddenButton">Hidden</button>
+             <button type="button" class="btn btn-secondary" id="ARCEngagedButton" >Engaged</button>
+             <button type="button" class="btn btn-secondary" id="ARCCoverButton" >In Cover</button>
+             <button type="button" class="btn btn-secondary" id="ARCCloseButton" >Close</button>
+             <button type="button" class="btn btn-secondary" id="ARCOtherButton">Other</button>
+           </div>
+         </li>
+       </ul>
+     </div>
+     <div class="card-body">
+       <h5 class="card-title" id="ARCResultValue">&nbsp;</h5>
+       <p class="card-text" id="ARCResultDescr">&nbsp;</p>
+       <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+     </div>
+   </div>
+   </div>
+   <br/>
+  </div>
 
 </div>
 </div>
