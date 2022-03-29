@@ -128,7 +128,7 @@
 
       var consumeResult = {
         result:"CONSUME",
-        descr:"Double this hostile's Move value when they take this action. Move the Borewyrm Infestation towards the nearest discovery marker, then remove any wound counters next to this Borewyrm Infestation. If there are no discovery markers or the only discovery markers on the board are showing the <?> side, treat this result as a Sneak result instead."
+        descr:"Double this hostile's Move value when they take this action. Move the Borewyrm Infestation towards the nearest discovery marker. If it finishes this move in a hex with a discovery marker, remove that discovery marker, then remove any wound counters next to this Borewyrm Infestation. If there are no discovery markers or the only discovery markers on the board are showing the <?> side, treat this result as a Sneak result instead."
       }
 
       var executeTheWeakResult = {
@@ -540,7 +540,8 @@
               return sneakResult;
               else if(rollResult>6 && rollResult<13)
               {
-                if($("input:checked").val()=='SD')
+  
+                if($("#SDAwakened").is(":checked"))
                 {
                   return advanceResult;
                 }
@@ -549,7 +550,7 @@
               }
               else if(rollResult>12 && rollResult<20)
               {
-                if($("input:checked").val()=='SD')
+                if($("#SDAwakened").is(":checked"))
                 {
                   return scuttleResult;
                 }
@@ -564,7 +565,7 @@
               return fallbackResult;
               else if(rollResult>3 && rollResult<7)
               {
-                if($("input:checked").val()=='SD')
+                if($("#SDAwakened").is(":checked"))
                 {
                   return onslaughtResult;
                 }
@@ -602,7 +603,7 @@
           {
             if(rollResult<4)
             {
-              if($("input:checked").val()=='SD')
+              if($("#SDAwakened").is(":checked"))
                 {
                   return aimResult;
                 }
@@ -612,7 +613,7 @@
               return aimResult;
               else if(rollResult>6 && rollResult<10)
               {
-                if($("input:checked").val()=='SD')
+                if($("#SDAwakened").is(":checked"))
                 {
                   return onslaughtResult;
                 }
@@ -630,7 +631,7 @@
           {
             if(rollResult<4)
             {
-              if($("input:checked").val()=='SD')
+              if($("#SDAwakened").is(":checked"))
                 {
                   return aimResult;
                 }
@@ -640,7 +641,7 @@
               return aimResult;
               else if(rollResult>6 && rollResult<10)
               {
-                if($("input:checked").val()=='SD')
+                if($("#SDAwakened").is(":checked"))
                 {
                   return onslaughtResult;
                 }
@@ -652,7 +653,7 @@
               return onslaughtResult;
               else if (rollResult>15 && rollResult<20)
               {
-                if($("input:checked").val()=='SD')
+                if($("#SDAwakened").is(":checked"))
                 {
                   return onslaughtResult;
                 }
@@ -948,7 +949,8 @@
           {
             if(rollResult<4)
             {
-              if($("input:checked").val()=='OM')
+              
+              if($("#OMEmpowered").is(":checked"))
               {
                 return advanceResult;
               }
@@ -1001,7 +1003,7 @@
               return advanceResult;
               else if(rollResult>9 && rollResult<16)
               {
-                if($("input:checked").val()=='OM')
+                if($("#OMEmpowered").is(":checked"))
                 {
                   return chargeResult; 
                 }
@@ -1011,7 +1013,7 @@
               
               else if(rollResult>15 && rollResult<20)
               {
-                if($("input:checked").val()=='OM')
+                if($("#OMEmpowered").is(":checked"))
                 {
                   return rushResult; 
                 }
@@ -1072,7 +1074,7 @@
               return holdResult;
               else if(rollResult>3 && rollResult<10)
               {
-                if($("input:checked").val()=='AM')
+                if($("#AMCheckBox").is(":checked"))
                 {
                   return advanceResult;
                 }
@@ -1922,7 +1924,7 @@
                 function()
               {
                 
-                if($("input:checked").val()=='TG')
+                if($("#TGCheckBox").is(":checked"))
                 {
                   generateRollResult(2, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"HIDDEN");
                 }
@@ -1934,7 +1936,7 @@
 
                 function()
               { 
-                if($("input:checked").val()=='TG')
+                if($("#TGCheckBox").is(":checked"))
                 generateRollResult(2, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"ENGAGED");
                 else
                 generateRollResult(0, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"ENGAGED");
@@ -1949,7 +1951,7 @@
                 // $('#TGResultValue').text(d20Roll+" - "+rollResult.result);
                 // $('#TGResultDescr').text(rollResult.descr);
                 
-                if($("input:checked").val()=='TG')
+                if($("#TGCheckBox").is(":checked"))
                 generateRollResult(2, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"COVER");
                 else
                 generateRollResult(0, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"COVER");
@@ -1965,7 +1967,7 @@
                 // $('#TGResultValue').text(d20Roll+" - "+rollResult.result);
                 // $('#TGResultDescr').text(rollResult.descr);
 
-                if($("input:checked").val()=='TG')
+                if($("#TGCheckBox").is(":checked"))
                 generateRollResult(2, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"CLOSE");
                 else
                 generateRollResult(0, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"CLOSE");
@@ -1980,7 +1982,7 @@
                 // $('#TGResultValue').text(d20Roll+" - "+rollResult.result);
                 // $('#TGResultDescr').text(rollResult.descr);
 
-                if($("input:checked").val()=='TG')
+                if($("#TGCheckBox").is(":checked"))
                 generateRollResult(2, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"OTHER");
                 else
                 generateRollResult(0, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"OTHER");
@@ -2025,10 +2027,23 @@
 
         //Spindle Drones
         $('#SDHiddenButton').click(
+
+          //if($("input:checked").val()=='TG')
+              //  generateRollResult(2, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"ENGAGED");
+              //  else
+              //  generateRollResult(0, traitorGuardHostile,$('#TGResultValue'),$('#TGResultDescr'),"ENGAGED");
+             
+          
+
+
           
           function()
           {
+            if($("#enhancedAISD").is(":checked"))
+            generateRollResult(1, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"HIDDEN");
+            else
             generateRollResult(0, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"HIDDEN");
+           
           }
         )     
 
@@ -2036,7 +2051,11 @@
 
             function()
           {
+            if($("#enhancedAISD").is(":checked"))
+            generateRollResult(1, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"ENGAGED");
+            else 
             generateRollResult(0, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"ENGAGED");
+          
           }
       )  
 
@@ -2044,7 +2063,11 @@
 
         function()
           {
+            if($("#enhancedAISD").is(":checked"))
+            generateRollResult(1, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"COVER");
+            else
             generateRollResult(0, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"COVER");
+           
           }
         )
 
@@ -2052,7 +2075,11 @@
 
         function()
           {
+            if($("#enhancedAISD").is(":checked"))
+            generateRollResult(1, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"CLOSE");
+            else 
             generateRollResult(0, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"CLOSE");
+           
           }
         )    
 
@@ -2060,13 +2087,18 @@
 
           function()
           { 
+            if($("#enhancedAISD").is(":checked"))
+            generateRollResult(1, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"OTHER");
+            else
             generateRollResult(0, spindleDroneHostile,$('#SDResultValue'),$('#SDResultDescr'),"OTHER");
+          
           }
         ) 
 
         $('#SDCard').on('hidden.bs.collapse', function () {
         $('#SDResultValue').text("");
         $('#SDResultDescr').text("");
+        $('#enhancedAISD').prop("checked", false);
       })
 
       //Guardian Drone
@@ -2113,6 +2145,7 @@
         $('#GDCard').on('hidden.bs.collapse', function () {
         $('#GDResultValue').text("");
         $('#GDResultDescr').text("");
+        $('#enhancedAIGD').prop("checked", false);
       })
       
        //Ur-Ghuls
@@ -2671,7 +2704,8 @@
        
           function()
           {
-            if($("input:checked").val()=='CL')
+            
+            if($("#CLCheckBox").is(":checked"))
             generateRollResult(2, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"HIDDEN");
             else
             generateRollResult(0, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"HIDDEN");
@@ -2682,7 +2716,7 @@
 
             function()
           {
-            if($("input:checked").val()=='CL')
+            if($("#CLCheckBox").is(":checked"))
             generateRollResult(2, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"ENGAGED");
             else
             generateRollResult(0, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"ENGAGED");
@@ -2693,7 +2727,7 @@
 
         function()
           {
-            if($("input:checked").val()=='CL')
+            if($("#CLCheckBox").is(":checked"))
             generateRollResult(2, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"COVER");
             else
             generateRollResult(0, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"COVER");
@@ -2704,7 +2738,7 @@
 
         function()
           {
-            if($("input:checked").val()=='CL')
+            if($("#CLCheckBox").is(":checked"))
             generateRollResult(2, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"CLOSE");
             else
             generateRollResult(0, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"CLOSE");
@@ -2715,7 +2749,7 @@
 
           function()
           { 
-            if($("input:checked").val()=='CL')
+            if($("#CLCheckBox").is(":checked"))
             generateRollResult(2, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"OTHER");
             else
             generateRollResult(0, cultistHostile,$('#CLResultValue'),$('#CLResultDescr'),"OTHER");
@@ -2964,8 +2998,12 @@ $('#ARCCheckBox').prop("checked", false);
             </div>
           </li>
         </ul>
-        <input type="checkbox" class="form-check-input" name="" id="TGCheckBox" value="TG">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="" id="TGCheckBox" value="TG">
+          <label class="form-check-label" for="TGCheckBox">
             Traitor Commissar Motivation Active
+          </label>
+        </div>
       </div>
       <div class="card-body">
         <h5 class="card-title" id="TGResultValue">&nbsp;</h5>
@@ -3019,8 +3057,18 @@ $('#ARCCheckBox').prop("checked", false);
               </div>
             </li>
           </ul>
-          <input type="checkbox" class="form-check-input" name="" id="SDAwakened" value="SD">
-          Awakened
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="" id="SDAwakened" value="SD">
+            <label class="form-check-label" for="SDAwakened">
+              Awakened
+            </label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="" id="enhancedAISD" value="SDAI">
+            <label class="form-check-label" for="enhancedAISD">
+              Enhanced Intelligence
+            </label>
+          </div>
         </div>
         <div class="card-body">
           <h5 class="card-title" id="SDResultValue">&nbsp;</h5>
@@ -3048,6 +3096,8 @@ $('#ARCCheckBox').prop("checked", false);
                </div>
              </li>
            </ul>
+           <input type="checkbox" class="form-check-input" name="" id="enhancedAIGD" value="GD">
+          Enhanced Intelligence
          </div>
          <div class="card-body">
            <h5 class="card-title" id="GDResultValue">&nbsp;</h5>
